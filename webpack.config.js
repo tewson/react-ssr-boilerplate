@@ -3,7 +3,7 @@ const WebpackNodeExternals = require('webpack-node-externals');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 
 const serverConfig = {
-  entry: './src/index.js',
+  entry: './src/index.jsx',
   externals: [
     WebpackNodeExternals({
       whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
@@ -13,7 +13,7 @@ const serverConfig = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
@@ -28,6 +28,9 @@ const serverConfig = {
       onBuildEnd: ['nodemon dist/server.js'],
     }),
   ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   target: 'node',
   watch: true,
 };

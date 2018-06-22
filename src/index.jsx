@@ -3,6 +3,10 @@
 /* eslint-disable-next-line import/no-extraneous-dependencies */
 import browserSync from 'browser-sync';
 import express from 'express';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+
+import App from './App';
 
 const server = express();
 
@@ -16,7 +20,9 @@ server.get('/', (_, res) => {
         <meta charset="UTF-8">
       </head>
       <body>
-        Hello world!
+        <div id="root">
+          ${renderToString(<App />)}
+        </div>
       </body>
     </html>
   `);
