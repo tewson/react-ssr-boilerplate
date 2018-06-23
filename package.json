@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "prestart": "rimraf dist",
-    "start": "webpack"
+    "start": "webpack",
+    "test:watch": "jest --watch",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -28,11 +30,15 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "browser-sync": "^2.24.4",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
+    "jest": "^23.1.0",
     "nodemon": "^1.17.5",
     "rimraf": "^2.6.2",
     "webpack": "^4.12.0",
