@@ -6,11 +6,13 @@ import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 
-import App from './App';
+import App from '../common/App';
 
 const server = express();
 
 const port = 3000;
+
+server.use(express.static('dist/public'));
 
 server.get('/', (_, res) => {
   res.send(`
@@ -20,9 +22,8 @@ server.get('/', (_, res) => {
         <meta charset="UTF-8">
       </head>
       <body>
-        <div id="root">
-          ${renderToString(<App />)}
-        </div>
+        <div id="root">${renderToString(<App />)}</div>
+        <script src="app.js"></script>
       </body>
     </html>
   `);

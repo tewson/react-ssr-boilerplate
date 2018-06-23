@@ -2,13 +2,7 @@ const path = require('path');
 const WebpackNodeExternals = require('webpack-node-externals');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 
-const serverConfig = {
-  entry: './src/index.jsx',
-  externals: [
-    WebpackNodeExternals({
-      whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
-    }),
-  ],
+const commonConfig = {
   mode: 'development',
   module: {
     rules: [
@@ -19,6 +13,19 @@ const serverConfig = {
       },
     ],
   },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+  watch: true,
+};
+
+const serverConfig = Object.assign({}, commonConfig, {
+  entry: './src/server/index.jsx',
+  externals: [
+    WebpackNodeExternals({
+      whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
+    }),
+  ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'server.js',
@@ -28,11 +35,15 @@ const serverConfig = {
       onBuildEnd: ['nodemon dist/server.js'],
     }),
   ],
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
   target: 'node',
-  watch: true,
-};
+});
 
-module.exports = [serverConfig];
+const clientConfig = Object.assign({}, commonConfig, {
+  entry: './src/client/index.jsx',
+  output: {
+    path: path.resolve(__dirname, 'dist/public'),
+    filename: 'app.js',
+  },
+});
+
+module.exports = [serverConfig, clientConfig];
